@@ -2,500 +2,406 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Login | Abubakar Portfolio</title>
+    <title>Admin Login | Portfolio</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Admin Login Specific Styles */
-        .login-page {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
-            background: #0F172A;
+            padding: 20px;
         }
-        
+
         .login-container {
             width: 100%;
-            max-width: 450px;
-        }
-        
-        .login-card {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
             border-radius: 20px;
-            padding: 3rem;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
             text-align: center;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
         }
-        
-        .login-logo {
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-        
-        .logo-circle {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #6C63FF, #36D1DC);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            margin: 0 auto 15px;
             color: white;
-            font-size: 1.8rem;
+            font-size: 32px;
             font-weight: bold;
+            box-shadow: 0 5px 15px rgba(106, 17, 203, 0.4);
         }
-        
-        .logo-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #6C63FF, #36D1DC);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .login-title {
-            font-size: 1.8rem;
+
+        h1 {
             color: white;
-            margin-bottom: 0.5rem;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 28px;
         }
-        
-        .login-subtitle {
-            color: #94A3B8;
-            margin-bottom: 2rem;
-            font-size: 1rem;
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.7);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 14px;
         }
-        
+
         .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
+            margin-bottom: 25px;
         }
-        
-        .form-label {
+
+        label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #E2E8F0;
+            color: white;
+            margin-bottom: 8px;
             font-weight: 500;
         }
-        
-        .form-input {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            background: rgba(15, 23, 42, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            color: white;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: #6C63FF;
-            box-shadow: 0 0 0 3px rgba(108, 99, 255, 0.1);
-        }
-        
-        .password-container {
+
+        .input-group {
             position: relative;
         }
-        
+
+        input {
+            width: 100%;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            color: white;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #6a11cb;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
         .toggle-password {
             position: absolute;
-            right: 1rem;
+            right: 15px;
             top: 50%;
             transform: translateY(-50%);
             background: none;
             border: none;
-            color: #94A3B8;
+            color: rgba(255, 255, 255, 0.7);
             cursor: pointer;
-            font-size: 1.1rem;
+            font-size: 18px;
         }
-        
+
         .login-btn {
             width: 100%;
-            padding: 1rem;
-            background: linear-gradient(135deg, #6C63FF, #36D1DC);
+            padding: 15px;
+            background: linear-gradient(45deg, #6a11cb, #2575fc);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
+            border-radius: 10px;
+            font-size: 16px;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            margin-top: 1rem;
+            transition: all 0.3s;
+            margin-top: 10px;
         }
-        
-        .login-btn:hover:not(:disabled) {
+
+        .login-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(108, 99, 255, 0.3);
+            box-shadow: 0 10px 20px rgba(106, 17, 203, 0.4);
         }
-        
-        .login-btn:disabled {
-            opacity: 0.7;
-            cursor: not-allowed;
+
+        .login-btn:active {
+            transform: translateY(0);
         }
-        
-        .error-message {
-            color: #EF4444;
-            margin-top: 1rem;
-            padding: 0.8rem;
-            background: rgba(239, 68, 68, 0.1);
-            border: 1px solid rgba(239, 68, 68, 0.2);
-            border-radius: 8px;
+
+        .error {
+            color: #ff6b6b;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
             display: none;
-            text-align: left;
+            padding: 10px;
+            background: rgba(255, 107, 107, 0.1);
+            border-radius: 5px;
+            border: 1px solid rgba(255, 107, 107, 0.2);
         }
-        
-        .error-message.show {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-        
-        .password-note {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: rgba(108, 99, 255, 0.1);
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
-            font-size: 0.9rem;
-            color: #94A3B8;
-            text-align: left;
+            padding: 15px;
+            margin-top: 20px;
+            border-left: 4px solid #6a11cb;
         }
-        
-        .password-note strong {
-            color: #6C63FF;
+
+        .info-box h3 {
+            color: white;
+            margin-bottom: 5px;
+            font-size: 14px;
         }
-        
-        .login-links {
-            margin-top: 2rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
+
+        .info-box p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 12px;
+            line-height: 1.4;
         }
-        
-        .back-link {
-            color: #94A3B8;
+
+        .links {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .links a {
+            color: #6a11cb;
             text-decoration: none;
+            font-size: 14px;
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-            transition: color 0.3s ease;
+            gap: 5px;
+            transition: color 0.3s;
         }
-        
-        .back-link:hover {
-            color: #6C63FF;
+
+        .links a:hover {
+            color: #2575fc;
         }
-        
-        .debug-info {
-            margin-top: 1rem;
-            font-size: 0.8rem;
-            color: #64748B;
-            text-align: left;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        @media (max-width: 480px) {
-            .login-card {
-                padding: 2rem 1.5rem;
-            }
-            
-            .login-title {
-                font-size: 1.5rem;
-            }
+
+        .status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-size: 12px;
+            display: none;
         }
     </style>
 </head>
-<body class="login-page">
-    <div class="bg-animation"></div>
-    
+<body>
+    <!-- Status indicator -->
+    <div class="status" id="status"></div>
+
     <div class="login-container">
-        <div class="login-card">
-            <div class="login-logo">
-                <div class="logo-circle">A</div>
-                <div class="logo-text">Admin</div>
-            </div>
-            
-            <h1 class="login-title">Admin Login</h1>
-            <p class="login-subtitle">Enter your password to access the admin panel</p>
-            
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="password-container">
-                        <input type="password" id="password" class="form-input" 
-                               placeholder="Enter admin password" required autocomplete="current-password">
-                        <button type="button" class="toggle-password" id="togglePassword">
-                            <i class="fas fa-eye"></i>
-                        </button>
-                    </div>
+        <div class="logo">
+            <div class="logo-icon">A</div>
+            <h1>Admin Panel</h1>
+            <p class="subtitle">Secure access to portfolio dashboard</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="password">Password</label>
+                <div class="input-group">
+                    <input type="password" id="password" placeholder="Enter admin password" autocomplete="current-password" autofocus>
+                    <button type="button" class="toggle-password" id="togglePassword">
+                        👁️
+                    </button>
                 </div>
-                
-                <button type="submit" class="login-btn" id="loginButton">
-                    <i class="fas fa-sign-in-alt"></i>
-                    <span>Login to Dashboard</span>
-                </button>
-                
-                <div class="error-message" id="errorMessage">
-                    <i class="fas fa-exclamation-circle"></i>
-                    <span>Invalid password. Please try again.</span>
-                </div>
-            </form>
-            
-            <div class="password-note">
-                <strong>Default password:</strong> admin123<br>
-                You can change it in the admin settings panel
             </div>
-            
-            <div class="login-links">
-                <a href="index.html" class="back-link">
-                    <i class="fas fa-arrow-left"></i> Back to Portfolio
-                </a>
-                <a href="contact.html" class="back-link">
-                    <i class="fas fa-envelope"></i> Contact Support
-                </a>
+
+            <button type="submit" class="login-btn" id="loginBtn">
+                🔐 Login to Dashboard
+            </button>
+
+            <div class="error" id="errorMessage">
+                Invalid password. Please try again.
             </div>
-            
-            <div class="debug-info" id="debugInfo">
-                <!-- Debug info will appear here -->
-            </div>
+        </form>
+
+        <div class="info-box">
+            <h3>Default Credentials</h3>
+            <p>Password: <strong>admin123</strong></p>
+            <p style="margin-top: 5px; font-size: 11px;">You can change this in admin settings after login.</p>
+        </div>
+
+        <div class="links">
+            <a href="index.html">
+                ← Back to Portfolio
+            </a>
         </div>
     </div>
 
     <script>
-        // Fixed Admin Login Script - No Blinking Issue
+        // SIMPLE FIXED VERSION - NO BLINKING
+        console.log('Admin Login Page Loaded');
+
+        // Initialize
         document.addEventListener('DOMContentLoaded', function() {
-            // Debug logging
-            console.log('Admin login page loaded');
+            // Show status
+            showStatus('Ready to login', 'info');
             
-            // Check if already logged in
-            const isLoggedIn = localStorage.getItem('admin_logged_in') === 'true';
-            const lastLogin = localStorage.getItem('admin_last_login');
-            
-            if (isLoggedIn && lastLogin) {
-                console.log('Already logged in, checking session...');
-                
-                // Check if session is still valid (24 hours)
-                const loginTime = new Date(lastLogin);
-                const now = new Date();
-                const hoursSinceLogin = (now - loginTime) / (1000 * 60 * 60);
-                
-                if (hoursSinceLogin < 24) {
-                    // Session is valid, redirect to dashboard
-                    console.log('Session valid, redirecting to dashboard');
-                    window.location.href = 'admin-dashboard.html';
-                    return;
-                } else {
-                    // Session expired
-                    console.log('Session expired, clearing login data');
-                    localStorage.removeItem('admin_logged_in');
-                    localStorage.removeItem('admin_last_login');
-                }
-            }
-            
-            // Initialize
-            initializeLogin();
+            // Setup event listeners
+            setupLogin();
         });
-        
-        function initializeLogin() {
+
+        function setupLogin() {
             const loginForm = document.getElementById('loginForm');
             const passwordInput = document.getElementById('password');
             const togglePasswordBtn = document.getElementById('togglePassword');
-            const loginButton = document.getElementById('loginButton');
-            const errorMessage = document.getElementById('errorMessage');
-            const debugInfo = document.getElementById('debugInfo');
-            
-            // Set default password if not exists
-            if (!localStorage.getItem('admin_password')) {
-                // Simple hash of "admin123"
-                const defaultHash = '212642806';
-                localStorage.setItem('admin_password', defaultHash);
-                console.log('Default password hash set');
-            }
-            
-            // Password visibility toggle
+            const loginBtn = document.getElementById('loginBtn');
+            const errorMsg = document.getElementById('errorMessage');
+
+            // Toggle password visibility
             togglePasswordBtn.addEventListener('click', function() {
-                const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-                passwordInput.setAttribute('type', type);
-                this.innerHTML = type === 'password' ? '<i class="fas fa-eye"></i>' : '<i class="fas fa-eye-slash"></i>';
+                const type = passwordInput.type === 'password' ? 'text' : 'password';
+                passwordInput.type = type;
+                this.textContent = type === 'password' ? '👁️' : '👁️‍🗨️';
             });
-            
+
             // Form submission
             loginForm.addEventListener('submit', function(e) {
                 e.preventDefault();
                 
-                const password = passwordInput.value;
+                const password = passwordInput.value.trim();
                 
-                // Disable button and show loading
-                const originalText = loginButton.innerHTML;
-                loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
-                loginButton.disabled = true;
-                
-                // Simple validation
                 if (!password) {
                     showError('Please enter a password');
-                    resetButton(loginButton, originalText);
                     return;
                 }
-                
-                // Simulate network delay
+
+                // Show loading
+                loginBtn.innerHTML = '⏳ Verifying...';
+                loginBtn.disabled = true;
+                hideError();
+
+                // Check password (with delay to simulate processing)
                 setTimeout(() => {
-                    // Check password
                     if (checkPassword(password)) {
-                        // Login successful
+                        // SUCCESS - Login
                         loginSuccess();
                     } else {
-                        // Login failed
+                        // FAILED - Show error
                         loginFailed();
                     }
-                    
-                    // Reset button
-                    resetButton(loginButton, originalText);
                 }, 800);
             });
-            
+
             // Auto-focus password field
             passwordInput.focus();
-            
-            // Add debug info
-            if (debugInfo) {
-                debugInfo.innerHTML = `
-                    <div>Browser: ${navigator.userAgent}</div>
-                    <div>LocalStorage: ${typeof(Storage) !== 'undefined' ? 'Available' : 'Not Available'}</div>
-                    <div>Cookies: ${navigator.cookieEnabled ? 'Enabled' : 'Disabled'}</div>
-                `;
-            }
-            
-            // Allow Enter key to submit
-            passwordInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    loginForm.requestSubmit();
-                }
-            });
         }
-        
+
         function checkPassword(password) {
-            // Check against stored hash
-            const storedHash = localStorage.getItem('admin_password');
-            
-            // Simple hash function (same as in contact.js)
-            function simpleHash(str) {
-                let hash = 0;
-                for (let i = 0; i < str.length; i++) {
-                    const char = str.charCodeAt(i);
-                    hash = ((hash << 5) - hash) + char;
-                    hash = hash & hash;
-                }
-                return hash.toString();
+            // Check against default password
+            if (password === 'admin123') {
+                return true;
             }
             
-            const inputHash = simpleHash(password);
+            // Check against stored hash (if changed)
+            const storedHash = localStorage.getItem('admin_password_hash');
+            if (storedHash) {
+                return simpleHash(password) === storedHash;
+            }
             
-            // Accept either the hash or the default password
-            return inputHash === storedHash || password === 'admin123';
+            return false;
         }
-        
+
+        function simpleHash(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                const char = str.charCodeAt(i);
+                hash = ((hash << 5) - hash) + char;
+                hash = hash & hash;
+            }
+            return hash.toString();
+        }
+
         function loginSuccess() {
             console.log('Login successful');
+            showStatus('Login successful! Redirecting...', 'success');
             
-            // Save login state
-            localStorage.setItem('admin_logged_in', 'true');
+            // Set login session
+            sessionStorage.setItem('admin_session', 'active');
             localStorage.setItem('admin_last_login', new Date().toISOString());
             
-            // Show success message
-            const errorMessage = document.getElementById('errorMessage');
-            if (errorMessage) {
-                errorMessage.innerHTML = '<i class="fas fa-check-circle"></i> Login successful! Redirecting...';
-                errorMessage.style.color = '#10B981';
-                errorMessage.style.borderColor = 'rgba(16, 185, 129, 0.3)';
-                errorMessage.style.backgroundColor = 'rgba(16, 185, 129, 0.1)';
-                errorMessage.classList.add('show');
-            }
+            // Disable form
+            document.getElementById('loginBtn').innerHTML = '✅ Success!';
             
-            // Redirect to dashboard after short delay
+            // Redirect after delay
             setTimeout(() => {
-                window.location.href = 'admin-dashboard.html';
+                // Use replace instead of href to prevent back button issues
+                window.location.replace('admin-dashboard.html');
             }, 1000);
         }
-        
+
         function loginFailed() {
             console.log('Login failed');
+            showError('Invalid password. Please try again.');
             
-            const errorMessage = document.getElementById('errorMessage');
-            if (errorMessage) {
-                errorMessage.innerHTML = '<i class="fas fa-exclamation-circle"></i> Invalid password. Please try again.';
-                errorMessage.style.color = '#EF4444';
-                errorMessage.style.borderColor = 'rgba(239, 68, 68, 0.3)';
-                errorMessage.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
-                errorMessage.classList.add('show');
-            }
+            // Reset button
+            document.getElementById('loginBtn').innerHTML = '🔐 Login to Dashboard';
+            document.getElementById('loginBtn').disabled = false;
+            
+            // Clear password
+            document.getElementById('password').value = '';
+            document.getElementById('password').focus();
             
             // Shake animation
-            const loginForm = document.getElementById('loginForm');
-            loginForm.style.animation = 'shake 0.5s ease-in-out';
+            const form = document.getElementById('loginForm');
+            form.style.animation = 'shake 0.5s';
             setTimeout(() => {
-                loginForm.style.animation = '';
+                form.style.animation = '';
             }, 500);
-            
-            // Clear password field
-            document.getElementById('password').value = '';
-            
-            // Add shake animation
-            const style = document.createElement('style');
-            style.textContent = `
-                @keyframes shake {
-                    0%, 100% { transform: translateX(0); }
-                    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
-                    20%, 40%, 60%, 80% { transform: translateX(5px); }
-                }
-            `;
-            document.head.appendChild(style);
         }
-        
+
         function showError(message) {
-            const errorMessage = document.getElementById('errorMessage');
-            if (errorMessage) {
-                errorMessage.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
-                errorMessage.classList.add('show');
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            showStatus('Login failed', 'error');
+        }
+
+        function hideError() {
+            document.getElementById('errorMessage').style.display = 'none';
+        }
+
+        function showStatus(message, type = 'info') {
+            const status = document.getElementById('status');
+            status.textContent = message;
+            status.style.display = 'block';
+            status.style.backgroundColor = type === 'error' ? 'rgba(255, 0, 0, 0.7)' : 
+                                         type === 'success' ? 'rgba(0, 255, 0, 0.7)' : 
+                                         'rgba(0, 0, 0, 0.7)';
+            
+            setTimeout(() => {
+                status.style.display = 'none';
+            }, 3000);
+        }
+
+        // Add shake animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes shake {
+                0%, 100% { transform: translateX(0); }
+                10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+                20%, 40%, 60%, 80% { transform: translateX(5px); }
             }
-        }
-        
-        function resetButton(button, originalText) {
-            button.innerHTML = originalText;
-            button.disabled = false;
-        }
-        
-        // Test localStorage functionality
-        function testLocalStorage() {
-            try {
-                const testKey = 'admin_test_' + Date.now();
-                localStorage.setItem(testKey, 'test');
-                localStorage.removeItem(testKey);
-                return true;
-            } catch (error) {
-                console.error('localStorage test failed:', error);
-                return false;
-            }
-        }
-        
-        // Run test on load
-        if (!testLocalStorage()) {
-            showError('Browser storage is disabled. Please enable cookies and localStorage.');
+        `;
+        document.head.appendChild(style);
+
+        // Check if already logged in (but don't auto-redirect)
+        if (sessionStorage.getItem('admin_session') === 'active') {
+            showStatus('Session active', 'info');
+            // Optional: Add a button to go to dashboard
         }
     </script>
 </body>
