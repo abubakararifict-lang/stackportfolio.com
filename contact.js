@@ -36,33 +36,33 @@ document.addEventListener('DOMContentLoaded', function() {
             }
             
             try {
-                // Send to server
-                const response = await fetch('/api/contact', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
+                // Try to save message to admin panel
+                if (typeof window.PortfolioAdmin !== 'undefined') {
+                    window.PortfolioAdmin.addMessage(formData);
+                    console.log('Message saved to admin panel');
+                }
                 
-                const data = await response.json();
+                // Save to localStorage for admin access
+                saveMessageToLocal(formData);
                 
-                if (data.success) {
+                // Simulate API call (for demo)
+                setTimeout(() => {
                     showNotification('Message sent successfully! I\'ll get back to you soon.', 'success');
                     contactForm.reset();
-                } else {
-                    showNotification(data.error || 'Failed to send message', 'error');
-                }
+                    resetButton(submitBtn, originalText);
+                }, 1500);
+                
             } catch (error) {
-                showNotification('Network error. Please try again.', 'error');
+                showNotification('Error sending message. Please try again.', 'error');
                 console.error('Contact form error:', error);
-            } finally {
                 resetButton(submitBtn, originalText);
             }
         });
     }
     
     function showNotification(message, type = 'info') {
+        if (!notification) return;
+        
         notification.textContent = message;
         notification.className = `notification ${type}`;
         notification.classList.add('show');
@@ -78,33 +78,24 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function resetButton(button, originalText) {
-
-
-
-        // Add this to your contact form submission
-async function handleContactSubmit(formData) {
-    // ... existing validation code ...
-    
-    // Save to admin panel if available
-    if (window.PortfolioAdmin) {
-        try {
-            window.PortfolioAdmin.addMessage({
-                name: formData.name,
-                email: formData.email,
-                subject: formData.subject,
-                message: formData.message,
-                ip: 'recorded', // You could get IP from a service
-                page: window.location.href
-            });
-        } catch (error) {
-            console.log('Message saved locally for admin');
-        }
-    }
-    
-    // ... rest of your submission code ...
-}
         button.innerHTML = originalText;
         button.disabled = false;
     }
-
+    
+    function saveMessageToLocal(formData) {
+        try {
+            const messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+            messages.unshift({
+                ...formData,
+                id: Date.now(),
+                timestamp: new Date().toISOString(),
+                read: false
+            });
+            localStorage.setItem('portfolio_messages', JSON.stringify(messages));
+            return true;
+        } catch (error) {
+            console.error('Failed to save message locally:', error);
+            return false;
+        }
+    }
 });
