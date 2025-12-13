@@ -5,25 +5,46 @@
     <title>Admin Login | Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        .admin-login-container {
+        /* Add these styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #6C63FF;
+            --secondary: #FF6584;
+            --accent: #36D1DC;
+            --dark: #121212;
+            --light: #FFFFFF;
+            --gray: #8A8A8A;
+        }
+        
+        body {
+            background: var(--dark);
+            color: var(--light);
+            font-family: 'Poppins', sans-serif;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 2rem;
-            background: var(--dark);
+            padding: 20px;
+        }
+        
+        .login-container {
+            width: 100%;
+            max-width: 400px;
         }
         
         .login-card {
-            background: var(--glass);
+            background: rgba(255, 255, 255, 0.05);
             backdrop-filter: blur(20px);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 25px;
             padding: 3rem;
             width: 100%;
-            max-width: 400px;
             text-align: center;
         }
         
@@ -64,11 +85,12 @@
             width: 100%;
             padding: 1rem;
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--glass-border);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             color: var(--light);
             font-family: 'Poppins', sans-serif;
-            transition: var(--transition);
+            font-size: 1rem;
+            transition: all 0.3s ease;
         }
         
         .form-input:focus {
@@ -87,7 +109,7 @@
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -102,6 +124,7 @@
         .login-btn:disabled {
             opacity: 0.6;
             cursor: not-allowed;
+            transform: none !important;
         }
         
         .alert {
@@ -118,10 +141,10 @@
             display: block;
         }
         
-        .alert.info {
-            background: rgba(108, 99, 255, 0.1);
-            border: 1px solid var(--primary);
-            color: var(--primary);
+        .alert.success {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid #4CAF50;
+            color: #4CAF50;
             display: block;
         }
         
@@ -140,10 +163,19 @@
             border-radius: 4px;
             font-family: monospace;
         }
+        
+        .spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
-    <div class="admin-login-container">
+    <div class="login-container">
         <div class="login-card">
             <div class="login-logo">
                 <i class="fas fa-user-shield"></i>
@@ -157,7 +189,7 @@
                 <div class="form-group">
                     <label for="password">Password</label>
                     <input type="password" id="password" class="form-input" 
-                           placeholder="Enter admin password" required>
+                           placeholder="Enter admin password" required autofocus>
                 </div>
                 
                 <button type="submit" class="login-btn" id="loginButton">
@@ -173,59 +205,89 @@
         </div>
     </div>
 
-    <script src="admin-panel.js"></script>
     <script>
+        // Check if already logged in
+        if (localStorage.getItem('portfolio_admin_logged_in') === 'true') {
+            window.location.href = 'admin-dashboard.html';
+        }
+        
         const loginForm = document.getElementById('loginForm');
         const passwordInput = document.getElementById('password');
         const loginButton = document.getElementById('loginButton');
         const loginAlert = document.getElementById('loginAlert');
         
-        // Check if already logged in
-        if (localStorage.getItem('portfolio_admin_logged_in')) {
-            window.location.href = 'admin-dashboard.html';
+        // Simple password check function
+        function checkPassword(password) {
+            // For demo, accept 'admin123'
+            // In real use, you'd want to hash and compare
+            const validPasswords = ['admin123', 'password', '123456'];
+            return validPasswords.includes(password);
         }
         
+        // Handle form submission
         loginForm.addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const password = passwordInput.value;
+            const password = passwordInput.value.trim();
             const originalText = loginButton.innerHTML;
             
-            // Show loading
-            loginButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
+            // Validate password
+            if (!password) {
+                showAlert('Please enter a password', 'error');
+                passwordInput.focus();
+                return;
+            }
+            
+            // Show loading state
+            loginButton.innerHTML = '<i class="fas fa-spinner spinner"></i> Logging in...';
             loginButton.disabled = true;
             
-            // Verify password
+            // Simulate API call delay
             setTimeout(() => {
-                if (PortfolioAdmin.verifyPassword(password)) {
+                if (checkPassword(password)) {
                     // Login successful
                     localStorage.setItem('portfolio_admin_logged_in', 'true');
-                    window.location.href = 'admin-dashboard.html';
+                    showAlert('Login successful! Redirecting...', 'success');
+                    
+                    // Redirect after short delay
+                    setTimeout(() => {
+                        window.location.href = 'admin-dashboard.html';
+                    }, 1000);
+                    
                 } else {
                     // Login failed
                     showAlert('Invalid password. Try "admin123"', 'error');
                     passwordInput.value = '';
                     passwordInput.focus();
+                    
+                    // Reset button
+                    loginButton.innerHTML = originalText;
+                    loginButton.disabled = false;
                 }
-                
-                // Reset button
-                loginButton.innerHTML = originalText;
-                loginButton.disabled = false;
-            }, 1000);
+            }, 1000); // 1 second delay
         });
         
-        function showAlert(message, type = 'info') {
+        function showAlert(message, type = 'error') {
             loginAlert.textContent = message;
             loginAlert.className = `alert ${type}`;
+            loginAlert.style.display = 'block';
             
-            if (type === 'error') {
+            // Auto-hide success messages
+            if (type === 'success') {
                 setTimeout(() => {
-                    loginAlert.className = 'alert';
+                    loginAlert.style.display = 'none';
                 }, 3000);
             }
         }
         
-        // Focus password input on load
+        // Enter key to submit
+        passwordInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                loginForm.requestSubmit();
+            }
+        });
+        
+        // Auto-focus on password field
         passwordInput.focus();
     </script>
 </body>
