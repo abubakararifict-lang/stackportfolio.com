@@ -1,4 +1,8 @@
 // Theme Toggle
+// Add this at the top of your script
+if (typeof(Storage) === "undefined") {
+    alert("Your browser doesn't support localStorage. Try Chrome/Firefox.");
+}
 const themeToggle = document.querySelector('.theme-toggle');
 const themeIcon = document.getElementById('theme-icon');
 
@@ -400,3 +404,4 @@ window.AdminHelper = {
         }
     }
 };
+
