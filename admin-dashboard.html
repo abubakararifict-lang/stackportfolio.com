@@ -7,388 +7,616 @@
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        .admin-container {
-            min-height: 100vh;
-            padding: 120px 2rem 2rem;
+        :root {
+            --admin-primary: #4F46E5;
+            --admin-secondary: #10B981;
+            --admin-accent: #F59E0B;
         }
-        
-        .admin-header {
+
+        .admin-body {
+            background: #0F172A;
+            color: #F1F5F9;
+            min-height: 100vh;
+        }
+
+        .admin-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 3rem;
         }
-        
-        .admin-actions {
-            display: flex;
-            gap: 1rem;
-        }
-        
-        .admin-btn {
-            padding: 0.8rem 1.5rem;
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            color: var(--light);
-            text-decoration: none;
+
+        .admin-nav .logo {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition);
+            gap: 10px;
         }
-        
-        .admin-btn:hover {
-            background: rgba(108, 99, 255, 0.1);
-            transform: translateY(-3px);
+
+        .logo-badge {
+            background: var(--admin-primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
         }
-        
-        .admin-btn.logout {
-            background: rgba(255, 101, 132, 0.1);
-            border-color: var(--secondary);
-            color: var(--secondary);
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
         }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+
+        .nav-btn {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--admin-primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.logout {
+            background: rgba(239, 68, 68, 0.2);
+            border-color: rgba(239, 68, 68, 0.3);
+        }
+
+        .nav-btn.logout:hover {
+            background: #EF4444;
+        }
+
+        .admin-main {
+            padding: 100px 2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
             margin-bottom: 3rem;
         }
-        
-        .stat-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: var(--transition);
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--primary);
-        }
-        
-        .stat-icon {
+
+        .admin-title {
             font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(to right, var(--primary), var(--accent));
+            background: linear-gradient(135deg, var(--admin-primary), var(--admin-accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            margin-bottom: 0.5rem;
         }
-        
-        .stat-label {
-            color: var(--gray);
-            font-size: 0.9rem;
+
+        .admin-subtitle {
+            color: #94A3B8;
+            font-size: 1.1rem;
         }
-        
-        .admin-grid {
+
+        .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
         }
-        
-        .admin-card {
-            background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid var(--glass-border);
-            border-radius: 15px;
-            padding: 2rem;
+
+        .stat-card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
         }
-        
-        .card-title {
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
-            color: var(--light);
+
+        .stat-card:hover {
+            border-color: var(--admin-primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(79, 70, 229, 0.2);
+        }
+
+        .stat-header {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 1rem;
+            margin-bottom: 1rem;
         }
-        
-        .recent-list {
+
+        .stat-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(79, 70, 229, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--admin-primary);
+        }
+
+        .stat-title {
+            font-size: 0.9rem;
+            color: #94A3B8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(to right, var(--admin-primary), var(--admin-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin: 0.5rem 0;
+        }
+
+        .stat-change {
+            font-size: 0.9rem;
+            color: #10B981;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        .card-link {
+            color: var(--admin-primary);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .message-list {
             list-style: none;
         }
-        
-        .recent-item {
+
+        .message-item {
             padding: 1rem;
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
-        
-        .recent-item:last-child {
+
+        .message-item:last-child {
             border-bottom: none;
         }
-        
-        .message-preview {
+
+        .message-info {
             flex: 1;
         }
-        
+
         .message-name {
             font-weight: 500;
-            color: var(--light);
+            color: white;
+            margin-bottom: 0.25rem;
         }
-        
+
         .message-email {
-            font-size: 0.8rem;
-            color: var(--gray);
+            font-size: 0.85rem;
+            color: #94A3B8;
         }
-        
+
         .message-time {
             font-size: 0.8rem;
-            color: var(--gray);
+            color: #64748B;
         }
-        
-        .unread-badge {
-            background: var(--secondary);
+
+        .message-unread {
+            background: rgba(239, 68, 68, 0.2);
+            border-left: 3px solid #EF4444;
+        }
+
+        .badge {
+            background: var(--admin-primary);
             color: white;
-            font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 10px;
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
             margin-left: 0.5rem;
         }
-        
+
+        .badge.new {
+            background: #EF4444;
+        }
+
         .quick-actions {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
-            margin-top: 2rem;
+            margin-top: 1rem;
         }
-        
-        .quick-action {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: 10px;
-            padding: 1.5rem;
+
+        .action-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
             text-align: center;
             text-decoration: none;
-            color: var(--light);
-            transition: var(--transition);
+            color: white;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
         }
-        
-        .quick-action:hover {
-            background: rgba(108, 99, 255, 0.1);
+
+        .action-btn:hover {
+            background: rgba(79, 70, 229, 0.2);
+            border-color: var(--admin-primary);
             transform: translateY(-3px);
         }
-        
-        .quick-action i {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
+
+        .action-btn i {
+            font-size: 1.5rem;
+            color: var(--admin-primary);
+        }
+
+        .action-label {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .login-info {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .login-time {
+            font-size: 0.9rem;
+            color: #94A3B8;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-actions {
+                flex-direction: column;
+                gap: 0.5rem;
+                align-items: flex-end;
+            }
         }
     </style>
 </head>
-<body>
-    <div class="bg-animation"></div>
-    
-    <nav class="glass-nav">
-        <div class="nav-container">
-            <div class="logo">
-                <span class="logo-text">A</span>
-                <span class="logo-name">Admin Panel</span>
+<body class="admin-body">
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="logo">
+            <div class="logo-badge">A</div>
+            <div>
+                <div style="font-weight: bold;">Admin Panel</div>
+                <div style="font-size: 0.8rem; color: #94A3B8;">Portfolio Dashboard</div>
             </div>
-            <div class="admin-actions">
-                <a href="index.html" target="_blank" class="admin-btn">
-                    <i class="fas fa-external-link-alt"></i> View Site
-                </a>
-                <a href="#" id="logoutBtn" class="admin-btn logout">
-                    <i class="fas fa-sign-out-alt"></i> Logout
-                </a>
-            </div>
+        </div>
+        
+        <div class="nav-actions">
+            <a href="index.html" target="_blank" class="nav-btn">
+                <i class="fas fa-external-link-alt"></i> View Site
+            </a>
+            <a href="#" id="logoutBtn" class="nav-btn logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
         </div>
     </nav>
 
-    <section class="admin-container">
-        <div class="container">
-            <div class="admin-header">
-                <h1 class="gradient-text">Dashboard</h1>
-                <div class="admin-info">
-                    <p>Welcome, Admin</p>
-                    <small id="lastLogin"></small>
+    <!-- Main Content -->
+    <main class="admin-main">
+        <div class="admin-header">
+            <h1 class="admin-title">Dashboard</h1>
+            <p class="admin-subtitle">Monitor and manage your portfolio</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div>
+                        <div class="stat-title">Total Messages</div>
+                        <div class="stat-value" id="totalMessages">0</div>
+                        <div class="stat-change" id="messageChange">+0 today</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fas fa-envelope stat-icon"></i>
-                    <div class="stat-number" id="totalMessages">0</div>
-                    <div class="stat-label">Total Messages</div>
-                </div>
-                
-                <div class="stat-card">
-                    <i class="fas fa-code stat-icon"></i>
-                    <div class="stat-number" id="totalProjects">0</div>
-                    <div class="stat-label">Projects</div>
-                </div>
-                
-                <div class="stat-card">
-                    <i class="fas fa-eye stat-icon"></i>
-                    <div class="stat-number" id="unreadMessages">0</div>
-                    <div class="stat-label">Unread Messages</div>
-                </div>
-                
-                <div class="stat-card">
-                    <i class="fas fa-calendar-alt stat-icon"></i>
-                    <div class="stat-number" id="todayMessages">0</div>
-                    <div class="stat-label">Messages Today</div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <div>
+                        <div class="stat-title">Projects</div>
+                        <div class="stat-value" id="totalProjects">0</div>
+                        <div class="stat-change">Manage your work</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="admin-grid">
-                <div class="admin-card">
-                    <h2 class="card-title">
-                        <i class="fas fa-envelope"></i> Recent Messages
-                        <span class="unread-badge" id="unreadBadge">0</span>
-                    </h2>
-                    <ul class="recent-list" id="recentMessages">
-                        <li class="recent-item">
-                            <div class="message-preview">
-                                <div class="message-name">No messages yet</div>
-                                <div class="message-email">Send a message from contact form</div>
-                            </div>
-                            <div class="message-time">--:--</div>
-                        </li>
-                    </ul>
-                    <a href="admin-messages.html" class="admin-btn" style="margin-top: 1rem; display: inline-block;">
-                        <i class="fas fa-list"></i> View All Messages
-                    </a>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div>
+                        <div class="stat-title">Unread Messages</div>
+                        <div class="stat-value" id="unreadMessages">0</div>
+                        <div class="stat-change" id="unreadChange">Require attention</div>
+                    </div>
                 </div>
-                
-                <div class="admin-card">
-                    <h2 class="card-title">
-                        <i class="fas fa-cog"></i> Quick Settings
-                    </h2>
-                    <div class="quick-actions">
-                        <a href="admin-messages.html" class="quick-action">
-                            <i class="fas fa-envelope"></i>
-                            <div>Messages</div>
-                        </a>
-                        <a href="admin-projects.html" class="quick-action">
-                            <i class="fas fa-code"></i>
-                            <div>Projects</div>
-                        </a>
-                        <a href="admin-settings.html" class="quick-action">
-                            <i class="fas fa-sliders-h"></i>
-                            <div>Settings</div>
-                        </a>
-                        <a href="admin-backup.html" class="quick-action">
-                            <i class="fas fa-database"></i>
-                            <div>Backup</div>
-                        </a>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-header">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div>
+                        <div class="stat-title">Site Visits</div>
+                        <div class="stat-value" id="siteVisits">0</div>
+                        <div class="stat-change">Last 24 hours</div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-grid">
+            <!-- Recent Messages -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        Recent Messages
+                        <span class="badge new" id="unreadBadge">0 new</span>
+                    </h2>
+                    <a href="admin-messages.html" class="card-link">
+                        View All <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+                
+                <ul class="message-list" id="messageList">
+                    <!-- Messages will be loaded here -->
+                    <li class="message-item">
+                        <div class="message-info">
+                            <div class="message-name">No messages yet</div>
+                            <div class="message-email">Messages will appear here when sent</div>
+                        </div>
+                        <div class="message-time">--:--</div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Quick Settings</h2>
+                </div>
+                
+                <div class="quick-actions">
+                    <a href="admin-messages.html" class="action-btn">
+                        <i class="fas fa-envelope"></i>
+                        <span class="action-label">Messages</span>
+                    </a>
+                    
+                    <a href="admin-projects.html" class="action-btn">
+                        <i class="fas fa-code"></i>
+                        <span class="action-label">Projects</span>
+                    </a>
+                    
+                    <a href="admin-settings.html" class="action-btn">
+                        <i class="fas fa-sliders-h"></i>
+                        <span class="action-label">Settings</span>
+                    </a>
+                    
+                    <a href="admin-backup.html" class="action-btn">
+                        <i class="fas fa-database"></i>
+                        <span class="action-label">Backup</span>
+                    </a>
+                </div>
+                
+                <!-- Login Info -->
+                <div class="login-info">
+                    <div style="font-weight: 500; margin-bottom: 0.5rem;">Welcome, Admin</div>
+                    <div class="login-time" id="lastLoginTime">Last login: --:--</div>
+                </div>
+            </div>
+        </div>
+    </main>
 
     <script>
+        // Admin Dashboard JavaScript
         document.addEventListener('DOMContentLoaded', function() {
             // Check authentication
-            if (localStorage.getItem('is_admin_logged_in') !== 'true') {
+            if (!checkAdminAuth()) {
+                return;
+            }
+            
+            // Load dashboard data
+            loadDashboardData();
+            
+            // Setup logout
+            setupLogout();
+            
+            // Update login time display
+            updateLoginTime();
+        });
+        
+        function checkAdminAuth() {
+            const isLoggedIn = localStorage.getItem('admin_logged_in') === 'true';
+            if (!isLoggedIn) {
                 window.location.href = 'admin-login.html';
+                return false;
             }
-            
-            // Load last login time
-            const lastLogin = localStorage.getItem('admin_last_login');
-            if (lastLogin) {
-                const date = new Date(lastLogin);
-                document.getElementById('lastLogin').textContent = 
-                    `Last login: ${date.toLocaleString()}`;
-            }
-            
-            // Load statistics
-            function loadStatistics() {
-                try {
-                    // Messages
-                    const messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
-                    const totalMessages = messages.length;
-                    const unreadMessages = messages.filter(m => !m.read).length;
-                    
-                    // Today's messages
-                    const today = new Date().toDateString();
-                    const todayMessages = messages.filter(m => {
-                        const msgDate = new Date(m.timestamp || m.created || Date.now()).toDateString();
-                        return msgDate === today;
-                    }).length;
-                    
-                    // Projects
-                    const projects = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
-                    const totalProjects = projects.length;
-                    
-                    // Update UI
-                    document.getElementById('totalMessages').textContent = totalMessages;
-                    document.getElementById('unreadMessages').textContent = unreadMessages;
-                    document.getElementById('todayMessages').textContent = todayMessages;
-                    document.getElementById('totalProjects').textContent = totalProjects;
-                    document.getElementById('unreadBadge').textContent = unreadMessages;
-                    
-                    // Load recent messages
-                    loadRecentMessages(messages.slice(0, 5));
-                    
-                } catch (error) {
-                    console.error('Error loading statistics:', error);
-                }
-            }
-            
-            function loadRecentMessages(messages) {
-                const container = document.getElementById('recentMessages');
-                if (!container) return;
+            return true;
+        }
+        
+        function loadDashboardData() {
+            try {
+                // Load messages
+                const messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+                const totalMessages = messages.length;
                 
-                if (messages.length === 0) {
-                    container.innerHTML = `
-                        <li class="recent-item">
-                            <div class="message-preview">
-                                <div class="message-name">No messages yet</div>
-                                <div class="message-email">Send a message from contact form</div>
-                            </div>
-                            <div class="message-time">--:--</div>
-                        </li>
-                    `;
-                    return;
-                }
+                // Count unread messages
+                const unreadMessages = messages.filter(msg => !msg.read).length;
                 
-                container.innerHTML = '';
-                messages.forEach(message => {
-                    const time = new Date(message.timestamp || message.created || Date.now());
-                    const timeStr = time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-                    
-                    container.innerHTML += `
-                        <li class="recent-item ${message.read ? '' : 'unread'}">
-                            <div class="message-preview">
-                                <div class="message-name">
-                                    ${message.name}
-                                    ${!message.read ? '<span class="unread-badge">New</span>' : ''}
-                                </div>
-                                <div class="message-email">${message.email}</div>
-                            </div>
-                            <div class="message-time">${timeStr}</div>
-                        </li>
-                    `;
-                });
+                // Count today's messages
+                const today = new Date().toDateString();
+                const todayMessages = messages.filter(msg => {
+                    const msgDate = new Date(msg.timestamp || msg.created || Date.now()).toDateString();
+                    return msgDate === today;
+                }).length;
+                
+                // Load projects
+                const projects = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+                const totalProjects = projects.length;
+                
+                // Site visits (simulated)
+                const siteVisits = localStorage.getItem('site_visits') || Math.floor(Math.random() * 100) + 50;
+                
+                // Update UI
+                document.getElementById('totalMessages').textContent = totalMessages;
+                document.getElementById('unreadMessages').textContent = unreadMessages;
+                document.getElementById('totalProjects').textContent = totalProjects;
+                document.getElementById('siteVisits').textContent = siteVisits;
+                document.getElementById('messageChange').textContent = `+${todayMessages} today`;
+                document.getElementById('unreadChange').textContent = unreadMessages > 0 ? 'Requires attention' : 'All read';
+                document.getElementById('unreadBadge').textContent = `${unreadMessages} new`;
+                
+                // Load recent messages
+                loadRecentMessages(messages.slice(0, 5));
+                
+            } catch (error) {
+                console.error('Error loading dashboard data:', error);
+                showError('Failed to load dashboard data');
+            }
+        }
+        
+        function loadRecentMessages(messages) {
+            const messageList = document.getElementById('messageList');
+            if (!messageList) return;
+            
+            if (messages.length === 0) {
+                messageList.innerHTML = `
+                    <li class="message-item">
+                        <div class="message-info">
+                            <div class="message-name">No messages yet</div>
+                            <div class="message-email">Messages will appear here when sent</div>
+                        </div>
+                        <div class="message-time">--:--</div>
+                    </li>
+                `;
+                return;
             }
             
-            // Logout function
+            messageList.innerHTML = '';
+            messages.forEach((message, index) => {
+                const time = new Date(message.timestamp || message.created || Date.now());
+                const timeStr = time.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const isUnread = !message.read;
+                
+                messageList.innerHTML += `
+                    <li class="message-item ${isUnread ? 'message-unread' : ''}">
+                        <div class="message-info">
+                            <div class="message-name">
+                                ${message.name}
+                                ${isUnread ? '<span class="badge new">NEW</span>' : ''}
+                            </div>
+                            <div class="message-email">${message.email}</div>
+                        </div>
+                        <div class="message-time">${timeStr}</div>
+                    </li>
+                `;
+            });
+        }
+        
+        function setupLogout() {
             document.getElementById('logoutBtn').addEventListener('click', function(e) {
                 e.preventDefault();
-                localStorage.removeItem('is_admin_logged_in');
+                
+                // Clear admin session
+                localStorage.removeItem('admin_logged_in');
+                localStorage.removeItem('admin_last_login');
+                
+                // Redirect to login
                 window.location.href = 'admin-login.html';
             });
+        }
+        
+        function updateLoginTime() {
+            const lastLogin = localStorage.getItem('admin_last_login');
+            const timeElement = document.getElementById('lastLoginTime');
             
-            // Initialize
-            loadStatistics();
-            
-            // Auto-refresh every 30 seconds
-            setInterval(loadStatistics, 30000);
-        });
+            if (lastLogin) {
+                const date = new Date(lastLogin);
+                timeElement.textContent = `Last login: ${date.toLocaleString()}`;
+            } else {
+                timeElement.textContent = 'Last login: Just now';
+            }
+        }
+        
+        function showError(message) {
+            // You can add a toast/notification system here
+            console.error('Admin Error:', message);
+        }
+        
+        // Auto-refresh every 30 seconds
+        setInterval(loadDashboardData, 30000);
     </script>
 </body>
 </html>
