@@ -78,7 +78,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     
     function resetButton(button, originalText) {
+
+
+
+        // Add this to your contact form submission
+async function handleContactSubmit(formData) {
+    // ... existing validation code ...
+    
+    // Save to admin panel if available
+    if (window.PortfolioAdmin) {
+        try {
+            window.PortfolioAdmin.addMessage({
+                name: formData.name,
+                email: formData.email,
+                subject: formData.subject,
+                message: formData.message,
+                ip: 'recorded', // You could get IP from a service
+                page: window.location.href
+            });
+        } catch (error) {
+            console.log('Message saved locally for admin');
+        }
+    }
+    
+    // ... rest of your submission code ...
+}
         button.innerHTML = originalText;
         button.disabled = false;
     }
+
 });
