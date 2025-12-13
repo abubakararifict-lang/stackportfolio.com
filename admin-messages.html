@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Messages - Admin Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --admin-primary: #4F46E5;
+            --admin-secondary: #10B981;
+            --admin-accent: #F59E0B;
+        }
+
+        .admin-body {
+            background: #0F172A;
+            color: #F1F5F9;
+            min-height: 100vh;
+        }
+
+        .admin-nav {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1rem 2rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .admin-nav .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-badge {
+            background: var(--admin-primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .nav-btn {
+            padding: 0.5rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--admin-primary);
+            transform: translateY(-2px);
+        }
+
+        .nav-btn.back {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .admin-main {
+            padding: 100px 2rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .admin-header {
+            margin-bottom: 2rem;
+        }
+
+        .admin-title {
+            font-size: 2rem;
+            background: linear-gradient(135deg, var(--admin-primary), var(--admin-accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            color: #94A3B8;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active {
+            background: var(--admin-primary);
+            color: white;
+            border-color: var(--admin-primary);
+        }
+
+        .filter-btn:hover:not(.active) {
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .messages-container {
+            background: rgba(30, 41, 59, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .message-header {
+            display: grid;
+            grid-template-columns: 3fr 2fr 1fr 1fr;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 500;
+            color: #94A3B8;
+        }
+
+        .message-row {
+            display: grid;
+            grid-template-columns: 3fr 2fr 1fr 1fr;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .message-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .message-row.unread {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 3px solid #EF4444;
+        }
+
+        .message-row.read {
+            opacity: 0.8;
+        }
+
+        .message-sender {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .sender-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--admin-primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+
+        .sender-info h4 {
+            margin: 0;
+            font-size: 1rem;
+        }
+
+        .sender-info p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: #94A3B8;
+        }
+
+        .message-subject {
+            font-weight: 500;
+        }
+
+        .message-time {
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .action-btn {
+            width: 35px;
+            height: 35px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .action-btn:hover {
+            background: var(--admin-primary);
+            transform: translateY(-2px);
+        }
+
+        .action-btn.delete:hover {
+            background: #EF4444;
+        }
+
+        .empty-state {
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #94A3B8;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: rgba(255, 255, 255, 0.1);
+        }
+
+        .message-detail {
+            display: none;
+            background: rgba(15, 23, 42, 0.8);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 2rem;
+        }
+
+        .message-detail.active {
+            display: block;
+        }
+
+        .detail-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 2rem;
+        }
+
+        .detail-sender {
+            flex: 1;
+        }
+
+        .detail-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .detail-body {
+            background: rgba(30, 41, 59, 0.5);
+            border-radius: 8px;
+            padding: 1.5rem;
+            white-space: pre-wrap;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 768px) {
+            .message-header,
+            .message-row {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .message-actions {
+                justify-self: start;
+            }
+        }
+    </style>
+</head>
+<body class="admin-body">
+    <!-- Admin Navigation -->
+    <nav class="admin-nav">
+        <div class="logo">
+            <div class="logo-badge">A</div>
+            <div>
+                <div style="font-weight: bold;">Message Management</div>
+                <div style="font-size: 0.8rem; color: #94A3B8;">Admin Panel</div>
+            </div>
+        </div>
+        
+        <div class="nav-actions">
+            <a href="admin-dashboard.html" class="nav-btn back">
+                <i class="fas fa-arrow-left"></i> Back to Dashboard
+            </a>
+            <a href="index.html" target="_blank" class="nav-btn">
+                <i class="fas fa-external-link-alt"></i> View Site
+            </a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        <div class="admin-header">
+            <h1 class="admin-title">Message Management</h1>
+            <p>View and manage all contact form submissions</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="message-filters">
+            <button class="filter-btn active" data-filter="all">All Messages</button>
+            <button class="filter-btn" data-filter="unread">Unread</button>
+            <button class="filter-btn" data-filter="today">Today</button>
+            <button class="filter-btn" data-filter="read">Read</button>
+        </div>
+
+        <!-- Messages List -->
+        <div class="messages-container" id="messagesContainer">
+            <div class="message-header">
+                <div>Sender</div>
+                <div>Subject</div>
+                <div>Time</div>
+                <div>Actions</div>
+            </div>
+            
+            <!-- Messages will be loaded here -->
+            <div class="empty-state" id="emptyState">
+                <i class="fas fa-envelope-open"></i>
+                <h3>No messages yet</h3>
+                <p>Contact form messages will appear here</p>
+            </div>
+        </div>
+
+        <!-- Message Detail View -->
+        <div class="message-detail" id="messageDetail">
+            <div class="detail-header">
+                <div class="detail-sender">
+                    <h3 id="detailSubject">No message selected</h3>
+                    <div style="display: flex; gap: 1rem; margin-top: 0.5rem;">
+                        <div>
+                            <strong>From:</strong>
+                            <span id="detailName">--</span>
+                        </div>
+                        <div>
+                            <strong>Email:</strong>
+                            <span id="detailEmail">--</span>
+                        </div>
+                        <div>
+                            <strong>Time:</strong>
+                            <span id="detailTime">--</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="detail-actions">
+                    <button class="action-btn" id="markReadBtn" title="Mark as read">
+                        <i class="fas fa-check"></i>
+                    </button>
+                    <button class="action-btn delete" id="deleteMessageBtn" title="Delete message">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="detail-body" id="detailBody">
+                Select a message to view its content
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Message Management JavaScript
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (!checkAdminAuth()) {
+                return;
+            }
+            
+            // Load messages
+            loadMessages();
+            
+            // Setup event listeners
+            setupEventListeners();
+            
+            // Check for URL parameters
+            checkUrlParams();
+        });
+        
+        function checkAdminAuth() {
+            const isLoggedIn = localStorage.getItem('admin_logged_in') === 'true';
+            if (!isLoggedIn) {
+                window.location.href = 'admin-login.html';
+                return false;
+            }
+            return true;
+        }
+        
+        let allMessages = [];
+        let currentMessageId = null;
+        
+        function loadMessages() {
+            try {
+                allMessages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+                renderMessages('all');
+                
+                // Hide empty state if there are messages
+                const emptyState = document.getElementById('emptyState');
+                if (emptyState) {
+                    emptyState.style.display = allMessages.length > 0 ? 'none' : 'block';
+                }
+                
+            } catch (error) {
+                console.error('Error loading messages:', error);
+                showError('Failed to load messages');
+            }
+        }
+        
+        function renderMessages(filter = 'all') {
+            const container = document.getElementById('messagesContainer');
+            if (!container) return;
+            
+            // Get filtered messages
+            let filteredMessages = [...allMessages];
+            
+            if (filter === 'unread') {
+                filteredMessages = filteredMessages.filter(msg => !msg.read);
+            } else if (filter === 'read') {
+                filteredMessages = filteredMessages.filter(msg => msg.read);
+            } else if (filter === 'today') {
+                const today = new Date().toDateString();
+                filteredMessages = filteredMessages.filter(msg => {
+                    const msgDate = new Date(msg.timestamp || msg.created || Date.now()).toDateString();
+                    return msgDate === today;
+                });
+            }
+            
+            // Sort by timestamp (newest first)
+            filteredMessages.sort((a, b) => {
+                return new Date(b.timestamp || b.created || 0) - new Date(a.timestamp || a.created || 0);
+            });
+            
+            // Build messages HTML
+            let messagesHTML = `
+                <div class="message-header">
+                    <div>Sender</div>
+                    <div>Subject</div>
+                    <div>Time</div>
+                    <div>Actions</div>
+                </div>
+            `;
+            
+            if (filteredMessages.length === 0) {
+                messagesHTML += `
+                    <div class="empty-state">
+                        <i class="fas fa-inbox"></i>
+                        <h3>No ${filter === 'all' ? '' : filter} messages</h3>
+                        <p>${getEmptyMessage(filter)}</p>
+                    </div>
+                `;
+            } else {
+                filteredMessages.forEach(message => {
+                    const time = new Date(message.timestamp || message.created || Date.now());
+                    const timeStr = time.toLocaleDateString() + ' ' + time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    const isUnread = !message.read;
+                    const initials = getInitials(message.name);
+                    
+                    messagesHTML += `
+                        <div class="message-row ${isUnread ? 'unread' : 'read'}" 
+                             data-id="${message.id}"
+                             onclick="showMessageDetail('${message.id}')">
+                            <div class="message-sender">
+                                <div class="sender-avatar">${initials}</div>
+                                <div class="sender-info">
+                                    <h4>${message.name}</h4>
+                                    <p>${message.email}</p>
+                                </div>
+                            </div>
+                            <div class="message-subject">${message.subject || 'No Subject'}</div>
+                            <div class="message-time">${timeStr}</div>
+                            <div class="message-actions">
+                                <button class="action-btn" onclick="event.stopPropagation(); markAsRead('${message.id}')" 
+                                        title="${isUnread ? 'Mark as read' : 'Mark as unread'}">
+                                    <i class="fas fa-${isUnread ? 'envelope' : 'envelope-open'}"></i>
+                                </button>
+                                <button class="action-btn delete" onclick="event.stopPropagation(); deleteMessage('${message.id}')" 
+                                        title="Delete message">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+            }
+            
+            container.innerHTML = messagesHTML;
+        }
+        
+        function getEmptyMessage(filter) {
+            switch(filter) {
+                case 'unread': return 'All messages have been read';
+                case 'today': return 'No messages received today';
+                case
