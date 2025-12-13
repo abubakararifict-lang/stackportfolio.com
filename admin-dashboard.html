@@ -12,18 +12,18 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #0f172a;
-            color: #f1f5f9;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: #0F172A;
+            color: #F8FAFC;
             min-height: 100vh;
         }
 
         /* Navigation */
-        .navbar {
-            background: rgba(15, 23, 42, 0.9);
+        .admin-header {
+            background: rgba(15, 23, 42, 0.95);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 15px 30px;
+            padding: 18px 30px;
             position: fixed;
             top: 0;
             left: 0;
@@ -34,175 +34,187 @@
             align-items: center;
         }
 
-        .logo {
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 15px;
         }
 
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-            border-radius: 10px;
+        .admin-logo {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #6C63FF 0%, #4A44C6 100%);
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: bold;
             font-size: 20px;
+            box-shadow: 0 5px 15px rgba(108, 99, 255, 0.3);
         }
 
-        .logo-text {
-            font-size: 20px;
-            font-weight: 600;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
+        .header-title h1 {
+            font-size: 22px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #6C63FF 0%, #4A44C6 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            margin-bottom: 3px;
         }
 
-        .nav-links {
+        .header-title p {
+            font-size: 13px;
+            color: #94A3B8;
+        }
+
+        .header-actions {
             display: flex;
-            gap: 20px;
+            gap: 12px;
             align-items: center;
         }
 
-        .nav-btn {
-            padding: 8px 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 8px;
+        .header-btn {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 10px;
             color: white;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 500;
             transition: all 0.3s;
             display: flex;
             align-items: center;
             gap: 8px;
+            cursor: pointer;
         }
 
-        .nav-btn:hover {
-            background: rgba(106, 17, 203, 0.3);
-            border-color: #6a11cb;
+        .header-btn:hover {
+            background: rgba(108, 99, 255, 0.2);
+            border-color: #6C63FF;
             transform: translateY(-2px);
         }
 
-        .nav-btn.logout {
-            background: rgba(220, 38, 38, 0.2);
-            border-color: rgba(220, 38, 38, 0.3);
+        .header-btn.logout {
+            background: rgba(239, 68, 68, 0.15);
+            border-color: rgba(239, 68, 68, 0.3);
         }
 
-        .nav-btn.logout:hover {
-            background: rgba(220, 38, 38, 0.4);
+        .header-btn.logout:hover {
+            background: rgba(239, 68, 68, 0.3);
         }
 
         /* Main Content */
-        .main-content {
-            padding: 100px 30px 30px;
+        .admin-main {
+            padding: 100px 30px 40px;
             max-width: 1400px;
             margin: 0 auto;
         }
 
-        .header {
+        .welcome-section {
             margin-bottom: 40px;
         }
 
-        .welcome-text {
-            font-size: 28px;
-            font-weight: 600;
+        .welcome-title {
+            font-size: 32px;
+            font-weight: 700;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
+            color: white;
         }
 
-        .subtitle {
-            color: #94a3b8;
+        .welcome-subtitle {
             font-size: 16px;
+            color: #94A3B8;
+            max-width: 600px;
         }
 
         /* Stats Grid */
         .stats-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
 
         .stat-card {
-            background: rgba(30, 41, 59, 0.5);
+            background: rgba(30, 41, 59, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            border-radius: 16px;
             padding: 25px;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
 
         .stat-card:hover {
-            border-color: #6a11cb;
+            border-color: #6C63FF;
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(106, 17, 203, 0.2);
+            box-shadow: 0 15px 40px rgba(108, 99, 255, 0.15);
         }
 
         .stat-header {
             display: flex;
             align-items: center;
             gap: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .stat-icon {
-            width: 50px;
-            height: 50px;
-            background: rgba(106, 17, 203, 0.2);
-            border-radius: 12px;
+            width: 55px;
+            height: 55px;
+            background: rgba(108, 99, 255, 0.15);
+            border-radius: 14px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 24px;
-            color: #6a11cb;
+            color: #6C63FF;
         }
 
-        .stat-title {
-            color: #94a3b8;
-            font-size: 14px;
+        .stat-text h3 {
+            font-size: 15px;
+            color: #94A3B8;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
         .stat-value {
-            font-size: 36px;
-            font-weight: 700;
-            margin: 10px 0;
-            background: linear-gradient(45deg, #6a11cb, #2575fc);
+            font-size: 40px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #6C63FF 0%, #4A44C6 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
+            line-height: 1;
         }
 
         .stat-change {
-            color: #10b981;
             font-size: 14px;
+            color: #10B981;
+            margin-top: 10px;
         }
 
-        /* Dashboard Grid */
-        .dashboard-grid {
+        /* Dashboard Layout */
+        .dashboard-layout {
             display: grid;
             grid-template-columns: 2fr 1fr;
             gap: 30px;
         }
 
         @media (max-width: 1024px) {
-            .dashboard-grid {
+            .dashboard-layout {
                 grid-template-columns: 1fr;
             }
         }
 
-        .card {
-            background: rgba(30, 41, 59, 0.5);
+        /* Cards */
+        .dashboard-card {
+            background: rgba(30, 41, 59, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
+            border-radius: 16px;
             padding: 25px;
         }
 
@@ -210,32 +222,50 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
 
         .card-title {
             font-size: 20px;
             font-weight: 600;
             color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-badge {
+            background: #EF4444;
+            color: white;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-weight: 600;
         }
 
         .card-link {
-            color: #6a11cb;
+            color: #6C63FF;
             text-decoration: none;
             font-size: 14px;
+            font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 6px;
+            transition: all 0.3s;
+        }
+
+        .card-link:hover {
+            gap: 10px;
         }
 
         /* Messages List */
-        .message-list {
+        .messages-list {
             list-style: none;
         }
 
         .message-item {
-            padding: 15px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -244,49 +274,45 @@
         }
 
         .message-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 8px;
         }
 
         .message-item.unread {
-            background: rgba(220, 38, 38, 0.1);
-            border-left: 3px solid #dc2626;
+            background: rgba(239, 68, 68, 0.08);
+            border-left: 3px solid #EF4444;
         }
 
-        .message-preview {
+        .message-info {
             flex: 1;
         }
 
         .message-name {
-            font-weight: 500;
+            font-weight: 600;
             color: white;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .message-email {
-            color: #94a3b8;
+            color: #94A3B8;
             font-size: 13px;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
 
-        .message-subject {
-            color: white;
+        .message-preview {
+            color: #CBD5E1;
             font-size: 14px;
             opacity: 0.9;
         }
 
         .message-time {
-            color: #64748b;
+            color: #64748B;
             font-size: 12px;
             text-align: right;
-        }
-
-        .badge {
-            background: #dc2626;
-            color: white;
-            font-size: 12px;
-            padding: 3px 8px;
-            border-radius: 10px;
-            margin-left: 8px;
+            min-width: 80px;
         }
 
         /* Quick Actions */
@@ -297,11 +323,11 @@
             margin-top: 20px;
         }
 
-        .action-btn {
+        .action-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 20px 15px;
+            border-radius: 12px;
+            padding: 22px 15px;
             text-align: center;
             text-decoration: none;
             color: white;
@@ -309,18 +335,25 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
         }
 
-        .action-btn:hover {
-            background: rgba(106, 17, 203, 0.2);
-            border-color: #6a11cb;
+        .action-card:hover {
+            background: rgba(108, 99, 255, 0.15);
+            border-color: #6C63FF;
             transform: translateY(-3px);
         }
 
-        .action-btn i {
-            font-size: 24px;
-            color: #6a11cb;
+        .action-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(108, 99, 255, 0.15);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #6C63FF;
         }
 
         .action-label {
@@ -328,58 +361,106 @@
             font-weight: 500;
         }
 
-        /* Login Info */
-        .login-info {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 10px;
+        /* Session Info */
+        .session-info {
+            background: rgba(108, 99, 255, 0.1);
+            border-radius: 12px;
             padding: 20px;
             margin-top: 25px;
+            border: 1px solid rgba(108, 99, 255, 0.2);
         }
 
-        .login-time {
+        .session-info h4 {
+            font-size: 16px;
+            color: white;
+            margin-bottom: 8px;
+        }
+
+        .session-time {
             font-size: 13px;
-            color: #94a3b8;
-            margin-top: 5px;
+            color: #94A3B8;
         }
 
         /* Empty State */
         .empty-state {
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
-            color: #94a3b8;
+            color: #94A3B8;
         }
 
-        .empty-state i {
+        .empty-icon {
             font-size: 48px;
             margin-bottom: 15px;
             opacity: 0.3;
+        }
+
+        /* Auth Message */
+        .auth-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+            z-index: 10000;
+            display: none;
+        }
+
+        .auth-message.show {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -40%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
         }
     </style>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="logo">
-            <div class="logo-icon">A</div>
-            <div class="logo-text">Admin Dashboard</div>
+    <!-- Authentication Message -->
+    <div class="auth-message" id="authMessage">
+        <div style="font-size: 48px; color: #6C63FF; margin-bottom: 20px;">
+            <i class="fas fa-lock"></i>
+        </div>
+        <h2 style="margin-bottom: 15px; color: white;">Access Required</h2>
+        <p style="color: #94A3B8; margin-bottom: 25px;">You need to login to access the admin dashboard.</p>
+        <a href="admin-login.html" class="header-btn" style="display: inline-flex;">
+            <i class="fas fa-sign-in-alt"></i> Go to Login
+        </a>
+    </div>
+
+    <!-- Header -->
+    <header class="admin-header">
+        <div class="header-left">
+            <div class="admin-logo">A</div>
+            <div class="header-title">
+                <h1>Admin Dashboard</h1>
+                <p>Manage your portfolio</p>
+            </div>
         </div>
         
-        <div class="nav-links">
-            <a href="index.html" target="_blank" class="nav-btn">
+        <div class="header-actions">
+            <a href="index.html" target="_blank" class="header-btn">
                 <i class="fas fa-external-link-alt"></i> View Site
             </a>
-            <a href="#" id="logoutBtn" class="nav-btn logout">
+            <button class="header-btn logout" id="logoutBtn">
                 <i class="fas fa-sign-out-alt"></i> Logout
-            </a>
+            </button>
         </div>
-    </nav>
+    </header>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <div class="header">
-            <h1 class="welcome-text">Welcome back, Admin</h1>
-            <p class="subtitle">Manage your portfolio from one place</p>
+    <main class="admin-main">
+        <div class="welcome-section">
+            <h1 class="welcome-title">Welcome back, Admin!</h1>
+            <p class="welcome-subtitle">Here's what's happening with your portfolio today.</p>
         </div>
 
         <!-- Statistics -->
@@ -389,12 +470,12 @@
                     <div class="stat-icon">
                         <i class="fas fa-envelope"></i>
                     </div>
-                    <div>
-                        <div class="stat-title">Total Messages</div>
+                    <div class="stat-text">
+                        <h3>Total Messages</h3>
                         <div class="stat-value" id="totalMessages">0</div>
-                        <div class="stat-change" id="todayMessages">+0 today</div>
                     </div>
                 </div>
+                <div class="stat-change" id="todayMessages">+0 today</div>
             </div>
 
             <div class="stat-card">
@@ -402,12 +483,12 @@
                     <div class="stat-icon">
                         <i class="fas fa-code"></i>
                     </div>
-                    <div>
-                        <div class="stat-title">Projects</div>
+                    <div class="stat-text">
+                        <h3>Projects</h3>
                         <div class="stat-value" id="totalProjects">0</div>
-                        <div class="stat-change">Manage your work</div>
                     </div>
                 </div>
+                <div class="stat-change">Manage portfolio work</div>
             </div>
 
             <div class="stat-card">
@@ -415,47 +496,34 @@
                     <div class="stat-icon">
                         <i class="fas fa-eye"></i>
                     </div>
-                    <div>
-                        <div class="stat-title">Unread Messages</div>
+                    <div class="stat-text">
+                        <h3>Unread</h3>
                         <div class="stat-value" id="unreadMessages">0</div>
-                        <div class="stat-change" id="unreadStatus">All read</div>
                     </div>
                 </div>
-            </div>
-
-            <div class="stat-card">
-                <div class="stat-header">
-                    <div class="stat-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <div>
-                        <div class="stat-title">Site Health</div>
-                        <div class="stat-value">100%</div>
-                        <div class="stat-change">All systems operational</div>
-                    </div>
-                </div>
+                <div class="stat-change" id="unreadStatus">All read</div>
             </div>
         </div>
 
-        <!-- Dashboard Grid -->
-        <div class="dashboard-grid">
+        <!-- Dashboard Content -->
+        <div class="dashboard-layout">
             <!-- Recent Messages -->
-            <div class="card">
+            <div class="dashboard-card">
                 <div class="card-header">
                     <h2 class="card-title">
-                        Recent Messages
-                        <span class="badge" id="unreadBadge">0</span>
+                        <i class="fas fa-envelope"></i> Recent Messages
+                        <span class="card-badge" id="unreadBadge">0</span>
                     </h2>
                     <a href="admin-messages.html" class="card-link">
                         View All <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
                 
-                <ul class="message-list" id="messageList">
+                <ul class="messages-list" id="messagesList">
                     <li class="message-item">
-                        <div class="message-preview">
+                        <div class="message-info">
                             <div class="message-name">No messages yet</div>
-                            <div class="message-email">Messages will appear here</div>
+                            <div class="message-email">Send messages from contact form</div>
                         </div>
                         <div class="message-time">--:--</div>
                     </li>
@@ -463,67 +531,114 @@
             </div>
 
             <!-- Quick Actions -->
-            <div class="card">
+            <div class="dashboard-card">
                 <div class="card-header">
-                    <h2 class="card-title">Quick Actions</h2>
+                    <h2 class="card-title">
+                        <i class="fas fa-bolt"></i> Quick Actions
+                    </h2>
                 </div>
                 
                 <div class="quick-actions">
-                    <a href="admin-messages.html" class="action-btn">
-                        <i class="fas fa-envelope"></i>
+                    <a href="admin-messages.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
                         <span class="action-label">Messages</span>
                     </a>
                     
-                    <a href="admin-projects.html" class="action-btn">
-                        <i class="fas fa-code"></i>
+                    <a href="admin-projects.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
                         <span class="action-label">Projects</span>
                     </a>
                     
-                    <a href="admin-settings.html" class="action-btn">
-                        <i class="fas fa-sliders-h"></i>
+                    <a href="admin-settings.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-sliders-h"></i>
+                        </div>
                         <span class="action-label">Settings</span>
                     </a>
                     
-                    <a href="admin-backup.html" class="action-btn">
-                        <i class="fas fa-database"></i>
+                    <a href="admin-backup.html" class="action-card">
+                        <div class="action-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
                         <span class="action-label">Backup</span>
                     </a>
                 </div>
                 
-                <div class="login-info">
-                    <div style="font-weight: 500; margin-bottom: 5px;">Session Active</div>
-                    <div class="login-time" id="lastLogin">Last login: Just now</div>
+                <div class="session-info">
+                    <h4>Session Active</h4>
+                    <div class="session-time" id="lastLoginTime">
+                        Last login: Loading...
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
     <script>
-        // SIMPLE DASHBOARD - NO REDIRECT LOOP
-        console.log('Admin Dashboard Loaded');
+        // SIMPLE WORKING DASHBOARD
+        console.log('Admin Dashboard Loading...');
 
-        // Check authentication ONCE
-        function checkAuth() {
-            // Use sessionStorage for immediate session check
-            if (sessionStorage.getItem('admin_session') !== 'active') {
-                console.log('No active session, redirecting to login');
-                // Use replace to prevent back button issues
-                window.location.replace('admin-login.html');
+        // Check authentication
+        function checkAuthentication() {
+            console.log('Checking authentication...');
+            
+            // Check localStorage
+            const isLoggedIn = localStorage.getItem('admin_logged_in') === 'true';
+            const lastLogin = localStorage.getItem('admin_last_login');
+            
+            // Check sessionStorage
+            const hasSession = sessionStorage.getItem('admin_session') === 'active';
+            
+            console.log('localStorage login:', isLoggedIn);
+            console.log('sessionStorage session:', hasSession);
+            console.log('Last login:', lastLogin);
+            
+            // If not authenticated, show message and stop
+            if (!isLoggedIn && !hasSession) {
+                console.log('User not authenticated');
+                document.getElementById('authMessage').classList.add('show');
                 return false;
             }
+            
+            // If authenticated but session expired (optional check)
+            if (lastLogin) {
+                const loginTime = new Date(lastLogin);
+                const now = new Date();
+                const hoursDiff = (now - loginTime) / (1000 * 60 * 60);
+                
+                if (hoursDiff > 24) {
+                    console.log('Session expired (24+ hours)');
+                    // Optional: Clear old session
+                    localStorage.removeItem('admin_logged_in');
+                    sessionStorage.removeItem('admin_session');
+                    document.getElementById('authMessage').classList.add('show');
+                    return false;
+                }
+            }
+            
+            // All checks passed
+            console.log('User authenticated successfully');
+            document.getElementById('authMessage').style.display = 'none';
             return true;
         }
 
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', function() {
-            // Check auth immediately
-            if (!checkAuth()) {
-                return; // Stop execution if not authenticated
+            console.log('DOM loaded, checking auth...');
+            
+            // Check authentication
+            if (!checkAuthentication()) {
+                console.log('Authentication failed, stopping dashboard load');
+                return;
             }
             
-            console.log('User authenticated, loading dashboard...');
+            console.log('Authentication passed, loading dashboard...');
             
-            // Load data
+            // Load dashboard data
             loadDashboardData();
             
             // Setup event listeners
@@ -532,8 +647,11 @@
 
         function loadDashboardData() {
             try {
+                console.log('Loading dashboard data...');
+                
                 // Load messages
                 const messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+                console.log('Found messages:', messages.length);
                 
                 // Update statistics
                 document.getElementById('totalMessages').textContent = messages.length;
@@ -549,8 +667,6 @@
                     return msgDate === today;
                 }).length;
                 document.getElementById('todayMessages').textContent = `+${todayMessages} today`;
-                
-                // Update unread status
                 document.getElementById('unreadStatus').textContent = 
                     unreadMessages > 0 ? `${unreadMessages} unread` : 'All read';
                 
@@ -558,27 +674,28 @@
                 const projects = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
                 document.getElementById('totalProjects').textContent = projects.length;
                 
-                // Load recent messages (latest 3)
-                loadRecentMessages(messages.slice(0, 3));
+                // Load recent messages
+                loadRecentMessages(messages.slice(0, 4));
                 
                 // Update login time
                 updateLoginTime();
                 
+                console.log('Dashboard data loaded successfully');
+                
             } catch (error) {
                 console.error('Error loading dashboard data:', error);
-                // Don't redirect on error, just show empty state
             }
         }
 
         function loadRecentMessages(messages) {
-            const container = document.getElementById('messageList');
+            const container = document.getElementById('messagesList');
             
             if (!messages || messages.length === 0) {
                 container.innerHTML = `
                     <li class="message-item">
-                        <div class="message-preview">
+                        <div class="message-info">
                             <div class="message-name">No messages yet</div>
-                            <div class="message-email">Messages will appear here</div>
+                            <div class="message-email">Send messages from contact form</div>
                         </div>
                         <div class="message-time">--:--</div>
                     </li>
@@ -590,19 +707,24 @@
             messages.forEach(msg => {
                 const time = new Date(msg.timestamp || Date.now());
                 const timeStr = time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                const dateStr = time.toLocaleDateString();
                 const isUnread = !msg.read;
+                const preview = msg.message.length > 50 ? msg.message.substring(0, 50) + '...' : msg.message;
                 
                 container.innerHTML += `
                     <li class="message-item ${isUnread ? 'unread' : ''}" onclick="viewMessage('${msg.id}')">
-                        <div class="message-preview">
+                        <div class="message-info">
                             <div class="message-name">
                                 ${msg.name}
-                                ${isUnread ? '<span class="badge">NEW</span>' : ''}
+                                ${isUnread ? '<span style="color: #EF4444; font-size: 12px;">●</span>' : ''}
                             </div>
                             <div class="message-email">${msg.email}</div>
-                            <div class="message-subject">${msg.subject || 'No Subject'}</div>
+                            <div class="message-preview">${preview}</div>
                         </div>
-                        <div class="message-time">${timeStr}</div>
+                        <div class="message-time">
+                            <div>${dateStr}</div>
+                            <div>${timeStr}</div>
+                        </div>
                     </li>
                 `;
             });
@@ -610,42 +732,62 @@
 
         function updateLoginTime() {
             const lastLogin = localStorage.getItem('admin_last_login');
-            const element = document.getElementById('lastLogin');
+            const element = document.getElementById('lastLoginTime');
             
             if (lastLogin) {
                 const date = new Date(lastLogin);
-                element.textContent = `Last login: ${date.toLocaleString()}`;
+                const now = new Date();
+                const diffMs = now - date;
+                const diffMins = Math.floor(diffMs / (1000 * 60));
+                
+                let timeText;
+                if (diffMins < 1) {
+                    timeText = 'Just now';
+                } else if (diffMins < 60) {
+                    timeText = `${diffMins} minutes ago`;
+                } else if (diffMins < 1440) {
+                    const hours = Math.floor(diffMins / 60);
+                    timeText = `${hours} hour${hours > 1 ? 's' : ''} ago`;
+                } else {
+                    timeText = date.toLocaleString();
+                }
+                
+                element.textContent = `Last login: ${timeText}`;
             } else {
-                element.textContent = 'Last login: Just now';
+                element.textContent = 'Last login: Recently';
             }
         }
 
         function setupDashboard() {
             // Logout button
-            document.getElementById('logoutBtn').addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                // Clear session
-                sessionStorage.removeItem('admin_session');
-                localStorage.removeItem('admin_last_login');
-                
-                // Redirect to login
-                window.location.href = 'admin-login.html';
+            document.getElementById('logoutBtn').addEventListener('click', function() {
+                if (confirm('Are you sure you want to logout?')) {
+                    console.log('Logging out...');
+                    
+                    // Clear all authentication data
+                    localStorage.removeItem('admin_logged_in');
+                    localStorage.removeItem('admin_last_login');
+                    sessionStorage.removeItem('admin_session');
+                    
+                    // Redirect to login page
+                    window.location.href = 'admin-login.html';
+                }
             });
             
-            // Auto-refresh every 30 seconds
+            // Auto-refresh dashboard every 30 seconds
             setInterval(loadDashboardData, 30000);
             
-            // Listen for new messages
+            // Listen for storage changes (new messages)
             window.addEventListener('storage', function(e) {
                 if (e.key === 'portfolio_messages') {
+                    console.log('New message detected, refreshing...');
                     loadDashboardData();
                 }
             });
         }
 
-        function viewMessage(messageId) {
-            // Simple message viewer
+        // View message function
+        window.viewMessage = function(messageId) {
             const messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
             const message = messages.find(m => m.id == messageId);
             
@@ -657,13 +799,30 @@
                     loadDashboardData(); // Refresh
                 }
                 
-                // Show message
-                alert(`From: ${message.name}\nEmail: ${message.email}\nSubject: ${message.subject || 'No Subject'}\n\nMessage:\n${message.message}`);
+                // Show message details
+                alert(`📧 Message Details\n\nFrom: ${message.name}\nEmail: ${message.email}\nSubject: ${message.subject || 'No Subject'}\nTime: ${new Date(message.timestamp).toLocaleString()}\n\nMessage:\n${message.message}`);
             }
-        }
+        };
 
-        // Make functions available globally
-        window.viewMessage = viewMessage;
+        // Test function to add sample data
+        window.addTestData = function() {
+            const testMessage = {
+                id: Date.now(),
+                name: 'Test User',
+                email: 'test@example.com',
+                subject: 'Test Message',
+                message: 'This is a test message to verify the dashboard is working.',
+                timestamp: new Date().toISOString(),
+                read: false
+            };
+            
+            const messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+            messages.unshift(testMessage);
+            localStorage.setItem('portfolio_messages', JSON.stringify(messages));
+            
+            loadDashboardData();
+            alert('Test message added!');
+        };
     </script>
 </body>
 </html>
