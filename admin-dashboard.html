@@ -480,6 +480,40 @@
     </main>
 
     <script>
+        // Fixed authentication check - prevents blinking
+document.addEventListener('DOMContentLoaded', function() {
+    // Check if user is logged in
+    const isLoggedIn = localStorage.getItem('admin_logged_in') === 'true';
+    const lastLogin = localStorage.getItem('admin_last_login');
+    
+    if (!isLoggedIn || !lastLogin) {
+        // Not logged in, redirect to login
+        console.log('Not logged in, redirecting to login');
+        window.location.href = 'admin-login.html';
+        return;
+    }
+    
+    // Check if session expired (24 hours)
+    const loginTime = new Date(lastLogin);
+    const now = new Date();
+    const hoursSinceLogin = (now - loginTime) / (1000 * 60 * 60);
+    
+    if (hoursSinceLogin >= 24) {
+        // Session expired
+        console.log('Session expired, clearing data');
+        localStorage.removeItem('admin_logged_in');
+        localStorage.removeItem('admin_last_login');
+        window.location.href = 'admin-login.html';
+        return;
+    }
+    
+    // User is properly authenticated, continue loading dashboard
+    console.log('User authenticated, loading dashboard');
+    
+    // Rest of your dashboard code here...
+    loadDashboardData();
+    // ... etc
+});
         // Admin Dashboard JavaScript
         document.addEventListener('DOMContentLoaded', function() {
             // Check authentication
@@ -620,3 +654,4 @@
     </script>
 </body>
 </html>
+
