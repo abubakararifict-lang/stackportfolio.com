@@ -1,16 +1,34 @@
+<!-- admin.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Admin Login | Portfolio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Admin Panel</title>
     <style>
-        /* Admin login styles - similar to your existing design */
-        /* You can reuse your existing CSS variables */
+        /* Your existing CSS styles */
     </style>
 </head>
 <body>
-    <!-- Admin login form -->
+    <div class="admin-login">
+        <h2>Admin Login</h2>
+        <input type="password" id="adminPassword" placeholder="Enter admin password">
+        <button onclick="login()">Login</button>
+        <p style="color: #666; font-size: 12px; margin-top: 20px;">
+            Note: This admin panel works with localStorage. 
+            For full features, deploy with backend.
+        </p>
+    </div>
+
+    <script src="static-admin.js"></script>
+    <script>
+        function login() {
+            const password = document.getElementById('adminPassword').value;
+            if (PortfolioAdmin.login(password)) {
+                window.location.href = 'admin-dashboard.html';
+            } else {
+                alert('Invalid password');
+            }
+        }
+    </script>
 </body>
 </html>
