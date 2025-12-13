@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Abubakar | Full Stack Developer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animations.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="home-page">
+    <!-- Animated Background -->
+    <div class="bg-animation">
+        <div class="sphere"></div>
+        <div class="sphere"></div>
+        <div class="sphere"></div>
+        <div class="gradient-bg"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="glass-nav">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-text">A</span>
+                <span class="logo-name">Abubakar</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link active"><i class="fas fa-home"></i> Home</a></li>
+                <li><a href="about.html" class="nav-link"><i class="fas fa-user"></i> About</a></li>
+                <li><a href="projects.html" class="nav-link"><i class="fas fa-code"></i> Projects</a></li>
+                <li><a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> Contact</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </div>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Innovating</span> Digital Experiences
+                </h1>
+                <p class="hero-subtitle">Full Stack Developer & UI/UX Specialist</p>
+                <p class="hero-desc">I craft high-performance web applications with cutting-edge technologies and pixel-perfect designs.</p>
+                <div class="hero-buttons">
+                    <a href="projects.html" class="btn-primary">
+                        <span>View Projects</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                    <a href="contact.html" class="btn-secondary">
+                        <span>Get In Touch</span>
+                        <i class="fas fa-paper-plane"></i>
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <h3>50+</h3>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="stat">
+                        <h3>3+</h3>
+                        <p>Years Experience</p>
+                    </div>
+                    <div class="stat">
+                        <h3>100%</h3>
+                        <p>Client Satisfaction</p>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="floating-card">
+                    <div class="card-content">
+                        <div class="code-snippet">
+                            <pre><code>const developer = {
+    name: "Abubakar",
+    role: "Full Stack Developer",
+    skills: ["React", "Node.js", "Python", "AWS"],
+    passion: "Building scalable solutions"
+};</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <p>Scroll to explore</p>
+        </div>
+    </section>
+
+    <!-- Tech Stack -->
+    <section class="tech-stack">
+        <h2 class="section-title">Tech Stack</h2>
+        <div class="stack-container">
+            <div class="stack-item">
+                <i class="fab fa-react"></i>
+                <p>React</p>
+            </div>
+            <div class="stack-item">
+                <i class="fab fa-node-js"></i>
+                <p>Node.js</p>
+            </div>
+            <div class="stack-item">
+                <i class="fab fa-python"></i>
+                <p>Python</p>
+            </div>
+            <div class="stack-item">
+                <i class="fas fa-database"></i>
+                <p>MongoDB</p>
+            </div>
+            <div class="stack-item">
+                <i class="fab fa-aws"></i>
+                <p>AWS</p>
+            </div>
+            <div class="stack-item">
+                <i class="fab fa-docker"></i>
+                <p>Docker</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back to Top Button -->
+    <button id="topBtn" class="top-btn">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="animations.js"></script>
+</body>
+</html>
