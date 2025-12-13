@@ -220,4 +220,175 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <i class="fas fa-envelope stat-icon"></i>
-                    <div class="stat-number"
+                    <div class="stat-number" id="totalMessages">0</div>
+                    <div class="stat-label">Total Messages</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-code stat-icon"></i>
+                    <div class="stat-number" id="totalProjects">0</div>
+                    <div class="stat-label">Projects</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-eye stat-icon"></i>
+                    <div class="stat-number" id="unreadMessages">0</div>
+                    <div class="stat-label">Unread Messages</div>
+                </div>
+                
+                <div class="stat-card">
+                    <i class="fas fa-calendar-alt stat-icon"></i>
+                    <div class="stat-number" id="todayMessages">0</div>
+                    <div class="stat-label">Messages Today</div>
+                </div>
+            </div>
+            
+            <div class="admin-grid">
+                <div class="admin-card">
+                    <h2 class="card-title">
+                        <i class="fas fa-envelope"></i> Recent Messages
+                        <span class="unread-badge" id="unreadBadge">0</span>
+                    </h2>
+                    <ul class="recent-list" id="recentMessages">
+                        <li class="recent-item">
+                            <div class="message-preview">
+                                <div class="message-name">No messages yet</div>
+                                <div class="message-email">Send a message from contact form</div>
+                            </div>
+                            <div class="message-time">--:--</div>
+                        </li>
+                    </ul>
+                    <a href="admin-messages.html" class="admin-btn" style="margin-top: 1rem; display: inline-block;">
+                        <i class="fas fa-list"></i> View All Messages
+                    </a>
+                </div>
+                
+                <div class="admin-card">
+                    <h2 class="card-title">
+                        <i class="fas fa-cog"></i> Quick Settings
+                    </h2>
+                    <div class="quick-actions">
+                        <a href="admin-messages.html" class="quick-action">
+                            <i class="fas fa-envelope"></i>
+                            <div>Messages</div>
+                        </a>
+                        <a href="admin-projects.html" class="quick-action">
+                            <i class="fas fa-code"></i>
+                            <div>Projects</div>
+                        </a>
+                        <a href="admin-settings.html" class="quick-action">
+                            <i class="fas fa-sliders-h"></i>
+                            <div>Settings</div>
+                        </a>
+                        <a href="admin-backup.html" class="quick-action">
+                            <i class="fas fa-database"></i>
+                            <div>Backup</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check authentication
+            if (localStorage.getItem('is_admin_logged_in') !== 'true') {
+                window.location.href = 'admin-login.html';
+            }
+            
+            // Load last login time
+            const lastLogin = localStorage.getItem('admin_last_login');
+            if (lastLogin) {
+                const date = new Date(lastLogin);
+                document.getElementById('lastLogin').textContent = 
+                    `Last login: ${date.toLocaleString()}`;
+            }
+            
+            // Load statistics
+            function loadStatistics() {
+                try {
+                    // Messages
+                    const messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+                    const totalMessages = messages.length;
+                    const unreadMessages = messages.filter(m => !m.read).length;
+                    
+                    // Today's messages
+                    const today = new Date().toDateString();
+                    const todayMessages = messages.filter(m => {
+                        const msgDate = new Date(m.timestamp || m.created || Date.now()).toDateString();
+                        return msgDate === today;
+                    }).length;
+                    
+                    // Projects
+                    const projects = JSON.parse(localStorage.getItem('portfolio_projects') || '[]');
+                    const totalProjects = projects.length;
+                    
+                    // Update UI
+                    document.getElementById('totalMessages').textContent = totalMessages;
+                    document.getElementById('unreadMessages').textContent = unreadMessages;
+                    document.getElementById('todayMessages').textContent = todayMessages;
+                    document.getElementById('totalProjects').textContent = totalProjects;
+                    document.getElementById('unreadBadge').textContent = unreadMessages;
+                    
+                    // Load recent messages
+                    loadRecentMessages(messages.slice(0, 5));
+                    
+                } catch (error) {
+                    console.error('Error loading statistics:', error);
+                }
+            }
+            
+            function loadRecentMessages(messages) {
+                const container = document.getElementById('recentMessages');
+                if (!container) return;
+                
+                if (messages.length === 0) {
+                    container.innerHTML = `
+                        <li class="recent-item">
+                            <div class="message-preview">
+                                <div class="message-name">No messages yet</div>
+                                <div class="message-email">Send a message from contact form</div>
+                            </div>
+                            <div class="message-time">--:--</div>
+                        </li>
+                    `;
+                    return;
+                }
+                
+                container.innerHTML = '';
+                messages.forEach(message => {
+                    const time = new Date(message.timestamp || message.created || Date.now());
+                    const timeStr = time.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+                    
+                    container.innerHTML += `
+                        <li class="recent-item ${message.read ? '' : 'unread'}">
+                            <div class="message-preview">
+                                <div class="message-name">
+                                    ${message.name}
+                                    ${!message.read ? '<span class="unread-badge">New</span>' : ''}
+                                </div>
+                                <div class="message-email">${message.email}</div>
+                            </div>
+                            <div class="message-time">${timeStr}</div>
+                        </li>
+                    `;
+                });
+            }
+            
+            // Logout function
+            document.getElementById('logoutBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                localStorage.removeItem('is_admin_logged_in');
+                window.location.href = 'admin-login.html';
+            });
+            
+            // Initialize
+            loadStatistics();
+            
+            // Auto-refresh every 30 seconds
+            setInterval(loadStatistics, 30000);
+        });
+    </script>
+</body>
+</html>
