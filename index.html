@@ -141,5 +141,49 @@
     <!-- Scripts -->
     <script src="script.js"></script>
     <script src="animations.js"></script>
+        <!-- Scripts -->
+    <script src="script.js"></script>
+    <script src="animations.js"></script>
+    
+    <!-- Message System Initialization -->
+    <script>
+    // Global message counter for all pages
+    window.addEventListener('load', function() {
+        // Initialize messages storage
+        if (!localStorage.getItem('portfolio_messages')) {
+            localStorage.setItem('portfolio_messages', JSON.stringify([]));
+        }
+        
+        // Update admin badge if admin is logged in
+        function updateMessageBadge() {
+            try {
+                const messages = JSON.parse(localStorage.getItem('portfolio_messages') || '[]');
+                const unreadCount = messages.filter(m => !m.read).length;
+                
+                // Update badge in admin panel
+                const badge = document.querySelector('.message-badge, .unread-badge');
+                if (badge) {
+                    badge.textContent = unreadCount > 0 ? unreadCount : '';
+                    badge.style.display = unreadCount > 0 ? 'inline-block' : 'none';
+                }
+            } catch (error) {
+                console.error('Error updating badge:', error);
+            }
+        }
+        
+        // Listen for storage changes
+        window.addEventListener('storage', function(event) {
+            if (event.key === 'portfolio_messages') {
+                updateMessageBadge();
+            }
+        });
+        
+        // Initial update
+        updateMessageBadge();
+    });
+    </script>
 </body>
 </html>
+</body>
+</html>
+
